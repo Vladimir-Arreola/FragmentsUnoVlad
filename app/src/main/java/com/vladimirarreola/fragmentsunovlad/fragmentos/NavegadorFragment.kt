@@ -1,16 +1,21 @@
 package com.vladimirarreola.fragmentsunovlad.fragmentos
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.webkit.WebSettings
+import android.webkit.WebView
+import android.webkit.WebViewClient
+import android.widget.Button
+import android.widget.EditText
 import com.vladimirarreola.fragmentsunovlad.R
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+private const val DEFAULT_URL = "urlPorDefault"
 
 /**
  * A simple [Fragment] subclass.
@@ -19,14 +24,17 @@ private const val ARG_PARAM2 = "param2"
  */
 class NavegadorFragment : Fragment() {
     // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+    private var url: String? = null
+    lateinit var wvNavegador:WebView
+    lateinit var btnIr:Button
+    lateinit var etUrl:EditText
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
+            url = it.getString(DEFAULT_URL)
         }
     }
 
@@ -35,7 +43,31 @@ class NavegadorFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_navegador, container, false)
+        Log.d("url", url!!)
+        val vistaNavigator = inflater.inflate(R.layout.fragment_navegador, container, false)
+
+        wvNavegador = vistaNavigator.findViewById(R.id.wvNavigator)
+        btnIr = vistaNavigator.findViewById(R.id.btnIr)
+        etUrl = vistaNavigator.findViewById(R.id.etUrl)
+
+        val webSettings = wvNavegador.settings
+        webSettings.javaScriptEnabled = true
+
+        wvNavegador.webViewClient = object : WebViewClient(){}
+
+        wvNavegador.webViewClient = object : WebViewClient(){
+
+        }
+
+        btnIr.setOnClickListener{
+            url = etUrl.text.toString().trim()
+            if(!url!!.isEmpty()){
+                url = "https://" + url
+                wvNavegador.loadUrl(url!!)
+            }
+        }
+
+        return vistaNavigator
     }
 
     companion object {
@@ -43,17 +75,15 @@ class NavegadorFragment : Fragment() {
          * Use this factory method to create a new instance of
          * this fragment using the provided parameters.
          *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
+         * @param url por default.
          * @return A new instance of fragment NavegadorFragment.
          */
         // TODO: Rename and change types and number of parameters
         @JvmStatic
-        fun newInstance(param1: String, param2: String) =
+        fun newInstance(urlPorDefault: String) =
             NavegadorFragment().apply {
                 arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+                    putString(DEFAULT_URL, urlPorDefault)
                 }
             }
     }

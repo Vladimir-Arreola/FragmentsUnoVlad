@@ -34,7 +34,7 @@
         app:layout_constraintTop_toBottomOf="@+id/frameContainer" />
 
     <Button
-        android:id="@+id/btnf2"
+        android:id="@+id/btnBrowser"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="51dp"
@@ -51,7 +51,7 @@
         android:layout_marginTop="32dp"
         android:text="Creditos"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/btnf2"
+        app:layout_constraintEnd_toStartOf="@+id/btnBrowser"
         app:layout_constraintStart_toEndOf="@+id/btnf1"
         app:layout_constraintTop_toBottomOf="@+id/frameContainer" />
 </androidx.constraintlayout.widget.ConstraintLayout>
