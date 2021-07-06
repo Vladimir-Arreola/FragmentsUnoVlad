@@ -52,18 +52,21 @@ class NavegadorFragment : Fragment() {
 
         val webSettings = wvNavegador.settings
         webSettings.javaScriptEnabled = true
-
         wvNavegador.webViewClient = object : WebViewClient(){}
 
-        wvNavegador.webViewClient = object : WebViewClient(){
-
-        }
+        wvNavegador.loadUrl(url!!)
 
         btnIr.setOnClickListener{
             url = etUrl.text.toString().trim()
             if(!url!!.isEmpty()){
-                url = "https://" + url
-                wvNavegador.loadUrl(url!!)
+                if(url!!.endsWith(".com")){
+                    url = "https://" + url
+                    wvNavegador.loadUrl(url!!)
+                }else{
+                    url = "https://www.google.com/search?q="+etUrl.text.toString().trim()
+                    wvNavegador.loadUrl(url!!)
+                }
+
             }
         }
 

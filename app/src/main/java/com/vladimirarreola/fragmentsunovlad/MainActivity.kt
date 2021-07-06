@@ -37,7 +37,7 @@ class MainActivity : AppCompatActivity() {
 
         btnNavigator.setOnClickListener{
             supportFragmentManager.beginTransaction()
-                .replace(R.id.frameContainer, NavegadorFragment.newInstance("google.com"))
+                .replace(R.id.frameContainer, NavegadorFragment.newInstance("https://google.com"))
                 .commitNow()
         }
 
